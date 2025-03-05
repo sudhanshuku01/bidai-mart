@@ -24,79 +24,39 @@ BID.ai is a **digital product marketplace** where users can list, buy, and sell 
 
 ---
 
-## **⚡ Setup Instructions**
+## **Setup Instructions**  
 
-### **1️⃣ Clone the Repository**
-
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git
-cd YOUR_REPOSITORY_NAME
+### **1️⃣ Install Dependencies**  
+#### **Frontend**  
+```sh
+npm install
 ```
-
-### **2️⃣ Install Dependencies**
-
-#### **Backend**
-
-```bash
+#### **Backend**  
+```sh
 cd backend
 npm install
 ```
 
-#### **Frontend**
-
-```bash
-cd frontend
-npm install
-```
-
-### **3️⃣ Environment Variables**
-
-Create a `.env` file in both `backend` and `frontend` with necessary variables:
-
-#### **Backend (`/backend/.env`)**
-
+### **2️⃣ Setup Environment Variables**  
+Create a `.env` file inside the `backend` folder with the following:  
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_secret_key
 ```
 
-#### **Frontend (`/frontend/.env`)**
+### **3️⃣ Run the Application**  
 
-```
-VITE_API_BASE_URL=http://localhost:5000/api
-```
-
-### **4️⃣ Run the Application**
-
-#### **Backend**
-
-```bash
+#### **Start Backend**  
+```sh
 cd backend
+npm run server.js
+```
+
+#### **Start Frontend**  
+```sh
 npm run dev
 ```
 
-#### **Frontend**
 
-```bash
-cd frontend
-npm run dev
-```
-
----
-
-## **🌟 Contributing**
-
-Feel free to fork and contribute! Open a PR with your improvements. 🚀
-
----
-
-## **📄 License**
-
-This project is **MIT Licensed**.
-
----
-
-### 🔗 **Live Demo**: [Your Website URL Here]
-
-Let me know if you need any modifications! 😊🚀
+    
