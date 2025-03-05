@@ -14,6 +14,13 @@ interface Product {
 const UserDashboard = () => {
   const [auth] = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const fetchUserProducts = async () => {
@@ -28,59 +35,113 @@ const UserDashboard = () => {
         console.error("Error fetching user products", error);
       }
     };
-
     fetchUserProducts();
   }, [auth.token]);
 
   const referralLink = `http://localhost:5173/signup?ref=${auth.user?._id}`;
-  const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reset after 2s
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/api/product/`,
+        formData,
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
+      if (res.data.success) {
+        setProducts([...products, res.data.data]);
+        setFormData({ name: "", description: "", price: "" });
+      }
+    } catch (error) {
+      console.error("Error adding product", error);
+    }
+    setLoading(false);
   };
 
   return (
     <Layout>
-      <div className="dashboard">
-        {/* User Info Section */}
-        <div className="user-info">
+      <div className="user-dashboard-container">
+        <div className="user-dashboard-info">
           <h2>Welcome, {auth.user?.name}!</h2>
           <p>Email: {auth.user?.email}</p>
-          <div className="referral-section">
+          <div className="user-dashboard-referral">
             <p>
               <strong>Referral Link:</strong>
-              <span className="referral-link">{referralLink}</span>
+              <span className="user-dashboard-referral-link">
+                {referralLink}
+              </span>
             </p>
-            <button className="copy-btn" onClick={handleCopy}>
+            <button className="user-dashboard-copy-btn" onClick={handleCopy}>
               {copied ? "Copied!" : "Copy"}
             </button>
           </div>
-          <div>
-            <p>
-              <span>Wallet Points: {auth.user?.walletPoints}</span>
-            </p>
-          </div>
+          <p className="user-dashboard-wallet">
+            Wallet Points: {auth.user?.walletPoints}
+          </p>
         </div>
 
-        {/* User Products Section */}
-        <div className="products-container">
+        <div className="user-dashboard-add-product">
+          <h2>Add New Product</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="Product Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <textarea
+              name="description"
+              placeholder="Product Description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" disabled={loading}>
+              {loading ? "Adding..." : "Add Product"}
+            </button>
+          </form>
+        </div>
+
+        <div className="user-dashboard-products">
           <h2>Your Items</h2>
-          <div className="products-grid">
+          <div className="user-dashboard-grid">
             {products.length > 0 ? (
               products.map((product) => (
-                <div key={product._id} className="product-card">
+                <div key={product._id} className="user-dashboard-product-card">
                   <img
-                    src={`https://source.unsplash.com/300x200/?product`}
+                    src={`https://plus.unsplash.com/premium_photo-1681313824743-7b5a2a635938?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aXBob25lfGVufDB8fDB8fHww`}
                     alt={product.name}
-                    className="product-image"
+                    className="user-dashboard-product-image"
                   />
-                  <div className="product-details">
+                  <div className="user-dashboard-product-details">
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <p className="price">₹{product.price}</p>
-                    <p className="views">Remaining Views: {product.views}</p>
+                    <p className="user-dashboard-price">₹{product.price}</p>
+                    <p className="user-dashboard-views">
+                      Remaining Views: {product.views}
+                    </p>
                   </div>
                 </div>
               ))

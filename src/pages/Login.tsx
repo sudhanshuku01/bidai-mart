@@ -8,11 +8,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (auth.user !== null) {
       navigate("/");
     }
   }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -28,6 +30,7 @@ const Login = () => {
       if (!data.success) {
         return alert(data.message);
       }
+
       const obj = {
         user: {
           _id: data.Data._id,
@@ -39,9 +42,7 @@ const Login = () => {
       };
 
       setAuth(obj);
-
       localStorage.setItem("bidai-mart", JSON.stringify(obj));
-
       navigate("/");
     } catch (error) {
       console.error("Login Error:", error);
@@ -50,27 +51,34 @@ const Login = () => {
 
   return (
     <Layout>
-      <div>
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
+      <div className="login-container">
+        <h2 className="login-title">Login to Bidai-Mart</h2>
+        <form className="login-form" onSubmit={handleLogin}>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="login-input"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="login-input"
           />
-          <button type="submit">Login</button>
+          <button type="submit" className="login-button">
+            Login
+          </button>
         </form>
-        <p>
-          Don't have an account? <Link to="/signup">Signup</Link>
+        <p className="signup-redirect">
+          Don't have an account?{" "}
+          <Link to="/signup" className="signup-link">
+            Signup
+          </Link>
         </p>
       </div>
     </Layout>

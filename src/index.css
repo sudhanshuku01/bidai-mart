@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 16px;
-  font-weight: 400px;
 }
-
+body {
+  font-family: "Roboto Slab";
+  position: relative;
+  max-width: 1250px;
+  margin: 0 auto;
+}

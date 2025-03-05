@@ -1,0 +1,95 @@
+/* Product Details Container */
+.product-details-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Product Image */
+.product-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Product Details */
+.product-details {
+  width: 100%;
+}
+
+.product-name {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #27ae60;
+  margin-bottom: 10px;
+}
+
+.product-seller {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+/* Loading & Error Messages */
+.loading-text {
+  font-size: 16px;
+  color: #3498db;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.error-message {
+  font-size: 16px;
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-card {
+    padding: 15px;
+  }
+
+  .product-name {
+    font-size: 22px;
+  }
+
+  .product-description {
+    font-size: 14px;
+  }
+
+  .product-price {
+    font-size: 18px;
+  }
+
+  .product-seller {
+    font-size: 14px;
+  }
+}

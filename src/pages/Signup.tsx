@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Layout from "../layout/Layout";
-import { useLocation } from "react-router-dom";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -14,14 +13,15 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [auth] = useAuth();
   const navigate = useNavigate();
-
   const query = useQuery();
   const ref = query.get("ref");
+
   useEffect(() => {
     if (auth.user !== null) {
       navigate("/");
     }
   }, []);
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -45,34 +45,42 @@ const Signup = () => {
 
   return (
     <Layout>
-      <div>
-        <h2>Signup</h2>
-        <form onSubmit={handleSignup}>
+      <div className="signup-container">
+        <h2 className="signup-title">Create an Account</h2>
+        <form className="signup-form" onSubmit={handleSignup}>
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className="signup-input"
           />
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="signup-input"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="signup-input"
           />
-          <button type="submit">Register</button>
+          <button type="submit" className="signup-button">
+            Register
+          </button>
         </form>
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
+        <p className="login-redirect">
+          Already have an account?{" "}
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
         </p>
       </div>
     </Layout>

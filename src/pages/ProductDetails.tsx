@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import Layout from "../layout/Layout";
 
 interface ProductType {
   _id: string;
@@ -41,28 +41,29 @@ const ProductDetails = () => {
     };
   }, [id]);
 
-  if (loading) return <p>Loading product...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (loading) return <p className="loading-text">Loading product...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div className="product-details-page">
-      {product && (
-        <div className="product-detail-card">
-          <img
-            src={`https://source.unsplash.com/500x300/?product,${product.name}`}
-            alt={product.name}
-            className="product-detail-image"
-          />
-          <div className="product-info">
-            <h2 className="product-title">{product.name}</h2>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">₹{product.price}</p>
-            <p className="product-views">Views Remaining: {product.views}</p>
-            <p className="product-seller">Seller: {product.seller.name}</p>
+    <Layout>
+      <div className="product-details-container">
+        {product && (
+          <div className="product-card">
+            <img
+              src={`https://plus.unsplash.com/premium_photo-1681313824743-7b5a2a635938?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aXBob25lfGVufDB8fDB8fHww`}
+              alt={product.name}
+              className="product-image"
+            />
+            <div className="product-details">
+              <h2 className="product-name">{product.name}</h2>
+              <p className="product-description">{product.description}</p>
+              <p className="product-price">₹{product.price}</p>
+              <p className="product-seller">Seller: {product.seller.name}</p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Layout>
   );
 };
 

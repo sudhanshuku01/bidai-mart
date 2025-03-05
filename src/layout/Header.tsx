@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../styles/Header.css"; // Import the CSS file
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const location = useLocation();
 
   return (
     <header className="header">
@@ -10,10 +12,15 @@ const Header = () => {
         <Link to="/" className="logo">
           Bidai-Mart
         </Link>
-        <nav>
+        <nav className="nav">
           {auth?.user ? (
             <>
-              <Link to="/profile" className="nav-link">
+              <Link
+                to="/profile"
+                className={`nav-link ${
+                  location.pathname === "/profile" ? "active" : ""
+                }`}
+              >
                 Profile
               </Link>
               <button
@@ -28,10 +35,20 @@ const Header = () => {
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link">
+              <Link
+                to="/login"
+                className={`nav-link ${
+                  location.pathname === "/login" ? "active" : ""
+                }`}
+              >
                 Login
               </Link>
-              <Link to="/signup" className="nav-link">
+              <Link
+                to="/signup"
+                className={`nav-link ${
+                  location.pathname === "/signup" ? "active" : ""
+                }`}
+              >
                 Signup
               </Link>
             </>

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-
 interface ProductType {
   _id: string;
   name: string;
@@ -31,29 +30,31 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <p>Loading products...</p>;
-  if (error) return <p className="error">{error}</p>;
+  if (loading) return <p className="loading-message">Loading products...</p>;
+  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div className="product-list">
+    <div className="product-grid">
       {products.map((product) => (
         <Link
           to={`/product/${product._id}`}
           key={product._id}
-          className="product-link"
+          className="product-item"
         >
           <div className="product-card">
-            <div className="image-container">
+            <div className="product-image-wrapper">
               <img
-                src={`https://source.unsplash.com/300x200/?product,${product.name}`}
+                src={`https://plus.unsplash.com/premium_photo-1681313824743-7b5a2a635938?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aXBob25lfGVufDB8fDB8fHww`}
                 alt={product.name}
                 className="product-image"
               />
-              <span className="seller-name">{product.seller.name}</span>
+              <span className="product-seller">
+                Sold by: {product.seller.name}
+              </span>
             </div>
-            <div className="product-details">
-              <h3 className="product-name">{product.name}</h3>
-              <p className="product-desc">{product.description}</p>
+            <div className="product-info">
+              <h3 className="product-title">{product.name}</h3>
+              <p className="product-description">{product.description}</p>
               <p className="product-price">₹{product.price}</p>
             </div>
           </div>
