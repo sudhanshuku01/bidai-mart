@@ -18,11 +18,14 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/role", {
-          headers: {
-            Authorization: `Bearer ${auth?.token}`,
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/auth/role`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth?.token}`,
+            },
+          }
+        );
         const data = await response.json();
         if (data.success) {
           setRole(data.role);

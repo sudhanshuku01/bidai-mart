@@ -25,9 +25,12 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchUserProducts = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/product/user`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
-        });
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/product/user`,
+          {
+            headers: { Authorization: `Bearer ${auth.token}` },
+          }
+        );
         if (res.data.success) {
           setProducts(res.data.products);
         }
@@ -57,7 +60,7 @@ const UserDashboard = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/product/`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/product/`,
         formData,
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );

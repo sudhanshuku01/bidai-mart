@@ -19,7 +19,9 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/product");
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/product`
+        );
         setProducts(res.data.data);
       } catch (err) {
         setError("Failed to load products.");

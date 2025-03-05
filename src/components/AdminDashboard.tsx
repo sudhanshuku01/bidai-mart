@@ -34,7 +34,7 @@ const AdminDashboard = () => {
     const fetchStats = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/admin/dashboard-stats",
+          `${import.meta.env.VITE_API_BASE_URL}/api/admin/dashboard-stats`,
           {
             headers: { Authorization: `Bearer ${auth.token}` },
           }
